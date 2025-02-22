@@ -14,10 +14,10 @@ const ContinueButton = ({ isEnabled }: ContinueButtonProps) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const pathname = window.location.pathname;
-      if (pathname === "/login-password") {
+      if (pathname === "/main/login-password") {
         setTargetUrl("/");
-      } else if (pathname === "/login") {
-        setTargetUrl("/login-password");
+      } else if (pathname === "/main/login") {  
+        setTargetUrl("/main/login-password");  
       }
     }
   }, []);
@@ -26,13 +26,13 @@ const ContinueButton = ({ isEnabled }: ContinueButtonProps) => {
     if (typeof window !== "undefined") {
       const pathname = window.location.pathname;
 
-      if (pathname === "/login") {
+      if (pathname === "/main/login") { 
         const email = getValues("email");
         if (email) {
           sessionStorage.setItem("email", email);
-          window.location.href = "/login-password";
+          window.location.href = "/main/login-password";  
         }
-      } else if (pathname === "/login-password") {
+      } else if (pathname === "/main/login-password") {  
         const email = sessionStorage.getItem("email");
         const password = getValues("password");
 
@@ -43,11 +43,11 @@ const ContinueButton = ({ isEnabled }: ContinueButtonProps) => {
               localStorage.setItem("token", response.token);
               Swal.fire({
                 icon: 'success',
-                title: '¡Inicio de sesion exitoso!',
+                title: '¡Inicio de sesión exitoso!',
                 text: 'Has sido redirigido a la página principal.',
                 confirmButtonText: 'Aceptar'
               }).then(() => {
-                window.location.replace("/"); 
+                window.location.replace("/main/home"); 
               });
             }
           } catch (error) {

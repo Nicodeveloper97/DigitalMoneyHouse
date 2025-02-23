@@ -1,6 +1,18 @@
 import * as yup from "yup";
 
-  export const emailSchema = yup
+// Esquema de validación para el número de cuenta
+export const accountSchema = yup.object({
+  accountNumber: yup
+    .string()
+    .matches(
+      /^[^2]\d{10}$/,
+      "El número de cuenta debe tener 11 dígitos y no puede comenzar con '2'."
+    )
+    .required("Completá los campos requeridos."),
+});
+
+// Esquema de validación para email
+export const emailSchema = yup
   .object({
     email: yup
       .string()
@@ -8,8 +20,9 @@ import * as yup from "yup";
       .required("Completá los campos requeridos."),
   })
   .required();
-  
-  export const passwordSchema = yup
+
+// Esquema de validación para contraseña
+export const passwordSchema = yup
   .object({
     password: yup
       .string()
@@ -20,7 +33,7 @@ import * as yup from "yup";
   })
   .required();
 
-  const nameSchema = yup
+const nameSchema = yup
   .string()
   .matches(/^[A-Za-z]+$/, "El campo debe contener solo letras")
   .required("Completá los campos requeridos.");
@@ -55,6 +68,7 @@ export const signupSchema = yup
   })
   .required();
 
+// Esquema de validación para tarjetas
 export const cardScheme = yup
   .object({
     cardNumber: yup

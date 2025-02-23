@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import AccountAPI from '../../services/Account/account.service'; 
+import AccountAPI from './../../services/Account/account.service'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faPen } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';

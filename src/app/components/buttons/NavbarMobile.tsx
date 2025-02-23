@@ -1,8 +1,18 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Swal from "sweetalert2";
+
+interface UserInfo {
+  firstname: string;
+  lastname: string;
+}
+
+interface MenuMobileProps {
+  userInfo: UserInfo;
+  isLoggedIn: boolean;
+}
 
 const menuLinks = [
   { href: "/home", name: "Inicio" },
@@ -13,33 +23,30 @@ const menuLinks = [
   { href: "/card1", name: "Tarjetas" },
 ];
 
-const NavbarMobile = ({ userInfo, isLoggedIn }) => {
+const NavbarMobile = ({ userInfo, isLoggedIn }: MenuMobileProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSpecialStyle, setIsSpecialStyle] = useState(false);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     const currentPath = window.location.pathname;
-    if (
-      !token &&
-      (currentPath === "/login" ||
-        currentPath === "/sign-up" ||
-        currentPath === "/login-password")
-    ) {
-      setIsSpecialStyle(true);
-    } else {
-      setIsSpecialStyle(false);
-    }
+    const tokenExists = Boolean(localStorage.getItem("token"));
+
+    setIsSpecialStyle(
+      !tokenExists &&
+        ["/login", "/sign-up", "/login-password"].includes(currentPath)
+    );
   }, []);
 
-  const getInitials = (firstname, lastname) => {
-    if (!firstname && !lastname) return "NN";
-    return (firstname.charAt(0) || "") + (lastname.charAt(0) || "");
-  };
+  const getInitials = useCallback(
+    (firstname: string, lastname: string) => {
+      return firstname?.charAt(0) + lastname?.charAt(0) || "NN";
+    },
+    []
+  );
 
-  const handleLogout = async () => {
+  const handleLogout = useCallback(async () => {
     const result = await Swal.fire({
       title: "¿Estás seguro?",
       text: "Quieres cerrar sesión",
@@ -56,28 +63,15 @@ const NavbarMobile = ({ userInfo, isLoggedIn }) => {
       sessionStorage.clear();
       window.location.href = "/";
     }
-  };
+  }, []);
 
-  const handleNavigation = (href) => {
-    if (
-      href === "/login" ||
-      href === "/login-password" ||
-      href === "/sign-up"
-    ) {
-      window.location.href = href;
-    } else {
-      setIsOpen(false);
-    }
-  };
+  const handleNavigation = useCallback((href: string) => {
+    window.location.href = href;
+  }, []);
 
-  const handleLogoClick = () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      window.location.href = "/";
-    } else {
-      window.location.href = "/home";
-    }
-  };
+  const handleLogoClick = useCallback(() => {
+    window.location.href = isLoggedIn ? "/home" : "/";
+  }, [isLoggedIn]);
 
   return (
     <div className="block md:hidden">
@@ -150,7 +144,7 @@ const NavbarMobile = ({ userInfo, isLoggedIn }) => {
                     key={link.href}
                     href={link.href}
                     className="block px-4 py-2 text-lg hover:bg-lime-500 hover:text-black"
-                    onClick={() => setIsOpen(false)}
+                    onClick={toggleMenu}
                   >
                     {link.name}
                   </Link>

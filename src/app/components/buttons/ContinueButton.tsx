@@ -9,15 +9,16 @@ type ContinueButtonProps = {
 
 const ContinueButton = ({ isEnabled }: ContinueButtonProps) => {
   const [targetUrl, setTargetUrl] = useState("/");
+
   const { getValues } = useFormContext();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const pathname = window.location.pathname;
       if (pathname === "/main/login-password") {
-        setTargetUrl("/");
-      } else if (pathname === "/main/login") {  
-        setTargetUrl("/main/login-password");  
+        setTargetUrl("/"); // Si estamos en login-password, redirigimos al home
+      } else if (pathname === "/main/login") {
+        setTargetUrl("/main/login-password"); // Redirigimos a login-password si estamos en login
       }
     }
   }, []);
@@ -26,13 +27,13 @@ const ContinueButton = ({ isEnabled }: ContinueButtonProps) => {
     if (typeof window !== "undefined") {
       const pathname = window.location.pathname;
 
-      if (pathname === "/main/login") { 
+      if (pathname === "/main/login") {
         const email = getValues("email");
         if (email) {
           sessionStorage.setItem("email", email);
           window.location.href = "/main/login-password";  
         }
-      } else if (pathname === "/main/login-password") {  
+      } else if (pathname === "/main/login-password") {
         const email = sessionStorage.getItem("email");
         const password = getValues("password");
 
@@ -47,7 +48,7 @@ const ContinueButton = ({ isEnabled }: ContinueButtonProps) => {
                 text: 'Has sido redirigido a la página principal.',
                 confirmButtonText: 'Aceptar'
               }).then(() => {
-                window.location.replace("/main/home"); 
+                window.location.replace("/main/home");
               });
             }
           } catch (error) {
@@ -64,16 +65,21 @@ const ContinueButton = ({ isEnabled }: ContinueButtonProps) => {
   };
 
   return isEnabled ? (
-    <div
+    <button
+      type="button"
       className="w-[300px] h-[50px] sm:w-[360px] sm:h-[64px] bg-lime-500 text-black px-4 py-2 rounded-[10px] font-bold text-center pt-4 cursor-pointer mb-2"
       onClick={handleClick}
     >
       Continuar
-    </div>
+    </button>
   ) : (
-    <div className="w-[300px] h-[50px] sm:w-[360px] sm:h-[64px] bg-lime-500 text-black px-4 py-2 rounded-[10px] font-bold text-center pt-4 cursor-not-allowed pointer-events-none mb-2">
+    <button
+      type="button"
+      className="w-[300px] h-[50px] sm:w-[360px] sm:h-[64px] bg-lime-500 text-black px-4 py-2 rounded-[10px] font-bold text-center pt-4 cursor-not-allowed pointer-events-none mb-2"
+      disabled
+    >
       Continuar
-    </div>
+    </button>
   );
 };
 

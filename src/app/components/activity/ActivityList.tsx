@@ -127,7 +127,7 @@ const ActivityList: React.FC = () => {
 
   const handleShowMore = () => {
     // Redirige a la página de actividades
-    window.location.href = "/activity";
+    window.location.href = "main/activity";
   };
 
   return (

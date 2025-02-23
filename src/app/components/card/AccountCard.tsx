@@ -24,16 +24,13 @@ const AccountCard: React.FC = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    console.log(token);
     if (token) {
       try {
         const payload = token.split('.')[1];
         const decodedPayload = JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/')));
-        console.log(decodedPayload.username || decodedPayload.id);
         const username = decodedPayload.username || decodedPayload.id;
-        console.log(username);
+
         if (!username) {
-          console.log("dentro de !username");
           setError('Username no encontrado en el token');
           setLoading(false);
           return;
@@ -41,25 +38,21 @@ const AccountCard: React.FC = () => {
 
         UserAPI.getUserData(token, username)
           .then((data) => {
-            console.log(data);
             setUser(data);
             setEditedUser(data); 
             setLoading(false);
           })
-          .catch((err) => {
-            console.log(err);
+          .catch(() => {
             setError('Error al obtener los datos del usuario');
             setLoading(false);
           });
       } catch (err) {
-        console.log(err);
         setError('Error al decodificar el token');
         setLoading(false);
       }
     } else {
-      console.log("else final");
-      setLoading(false);
       setError('Token no encontrado en el localStorage');
+      setLoading(false);
     }
   }, []);
 
@@ -81,19 +74,27 @@ const AccountCard: React.FC = () => {
 
     try {
       await UserAPI.updateUserData(token, user.id, editedUser);
-      setUser(editedUser);
+      setUser(editedUser); // Sincroniza el estado user con los datos editados
       setIsEditing(false);
       Swal.fire({
         title: 'Actualizado',
         text: 'Tus datos han sido actualizados',
         icon: 'success',
       }).then(() => {
-        window.location.reload();
+        window.location.reload(); // Recarga la página para reflejar los cambios
       });
     } catch (error) {
       Swal.fire('Error', 'No se pudieron actualizar los datos', 'error');
     }
   };
+
+  const renderEditSaveIcon = (field: keyof User) => (
+    <FontAwesomeIcon
+      icon={isEditing ? faSave : faPen}
+      className="text-custom-dark cursor-pointer"
+      onClick={isEditing ? handleSave : handleEdit}
+    />
+  );
 
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -118,11 +119,7 @@ const AccountCard: React.FC = () => {
               <p className="text-black-opacity-50">{user?.email}</p>
             )}
           </div>
-          <FontAwesomeIcon
-            icon={isEditing ? faSave : faPen}
-            className="text-custom-dark cursor-pointer"
-            onClick={isEditing ? handleSave : handleEdit}
-          />
+          {renderEditSaveIcon("email")}
         </div>
         <div className="flex items-center gap-x-2">
           <label className="text-gray-700">Nombre:</label>
@@ -140,11 +137,7 @@ const AccountCard: React.FC = () => {
               <p className="text-black-opacity-50">{user?.firstname}</p>
             )}
           </div>
-          <FontAwesomeIcon
-            icon={isEditing ? faSave : faPen}
-            className="text-custom-dark cursor-pointer"
-            onClick={isEditing ? handleSave : handleEdit}
-          />
+          {renderEditSaveIcon("firstname")}
         </div>
         <div className="flex items-center gap-x-2">
           <label className="text-gray-700">Apellido:</label>
@@ -162,11 +155,7 @@ const AccountCard: React.FC = () => {
               <p className="text-black-opacity-50">{user?.lastname}</p>
             )}
           </div>
-          <FontAwesomeIcon
-            icon={isEditing ? faSave : faPen}
-            className="text-custom-dark cursor-pointer"
-            onClick={isEditing ? handleSave : handleEdit}
-          />
+          {renderEditSaveIcon("lastname")}
         </div>
         <div className="flex items-center gap-x-2">
           <label className="text-gray-700">Teléfono:</label>
@@ -184,11 +173,7 @@ const AccountCard: React.FC = () => {
               <p className="text-black-opacity-50">{user?.phone}</p>
             )}
           </div>
-          <FontAwesomeIcon
-            icon={isEditing ? faSave : faPen}
-            className="text-custom-dark cursor-pointer"
-            onClick={isEditing ? handleSave : handleEdit}
-          />
+          {renderEditSaveIcon("phone")}
         </div>
         <div className="flex gap-x-2 items-center">
           <label className="text-gray-700">DNI:</label>

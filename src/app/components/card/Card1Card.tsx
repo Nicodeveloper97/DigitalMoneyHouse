@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const Card1Card = () => {
   return (
-    <Link href="/card2">
+    <Link href="/main/card2">
       <div
         className="bg-black text-white p-6 rounded-lg flex justify-between items-center w-[350px] sm:w-[511px] lg:w-[1006px] h-[167px] mb-6"
         style={{ cursor: 'pointer' }}

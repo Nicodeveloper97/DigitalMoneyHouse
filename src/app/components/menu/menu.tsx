@@ -27,12 +27,12 @@ const Menu = () => {
   };
 
   const menuLinks = [
-    { href: "/home", name: "Inicio" },
-    { href: "/activity", name: "Actividad" },
-    { href: "/account", name: "Tu perfil" },
-    { href: "/transactions", name: "Cargar dinero" },
-    { href: "/services", name: "Pagar servicios" },
-    { href: "/card1", name: "Tarjetas" },
+    { href: "/main/home", name: "Inicio" },
+    { href: "/main/activity", name: "Actividad" },
+    { href: "/main/account", name: "Tu perfil" },
+    { href: "/main/transactions", name: "Cargar dinero" },
+    { href: "/main/services", name: "Pagar servicios" },
+    { href: "/main/card1", name: "Tarjetas" },
   ];
 
   return (

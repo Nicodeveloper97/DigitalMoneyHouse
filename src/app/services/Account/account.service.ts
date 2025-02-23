@@ -27,7 +27,6 @@ class AccountAPI {
     }
   }
 
-  // Método para actualizar el alias de la cuenta
   async updateAccountAlias(token: string, accountId: number, newAlias: string) {
     try {
       const response = await fetch(`${this.baseUrl}/api/accounts/${accountId}`, {

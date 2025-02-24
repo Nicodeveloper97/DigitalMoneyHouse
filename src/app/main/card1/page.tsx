@@ -1,9 +1,10 @@
-import React from 'react'
+"use client"
+import React from "react";
 import Menu from '@/app/components/menu/menu';
 import Card1Card from '@/app/components/card/Card1Card';
 import Card1List from '@/app/components/card/Card1List';
 
-const page = () => {
+const Page = () => {
   return (
     <div className="flex">
       <Menu />
@@ -16,4 +17,4 @@ const page = () => {
   );
 }
 
-export default page
+export default Page

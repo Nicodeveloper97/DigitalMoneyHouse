@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React from "react";
 import { useForm, FormProvider, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -35,9 +35,7 @@ const CardPage: React.FC = () => {
 
   const formatExpiry = (value: string): string => {
     const cleanValue = value.replace(/\D/g, "");
-    return cleanValue.length <= 2
-      ? cleanValue
-      : `${cleanValue.slice(0, 2)}/${cleanValue.slice(2, 4)}`;
+    return cleanValue.length <= 2 ? cleanValue : `${cleanValue.slice(0, 2)}/${cleanValue.slice(2, 4)}`;
   };
 
   const convertExpiryToFullYear = (expiry: string): string => {
@@ -54,10 +52,7 @@ const CardPage: React.FC = () => {
       const accountInfo = await accountAPI.getAccountInfo(token);
       const accountId = accountInfo.id;
 
-      const existingCards = await cardService.getCardsByAccountId(
-        accountId,
-        token
-      );
+      const existingCards = await cardService.getCardsByAccountId(accountId, token);
       if (existingCards.length >= 10) {
         Swal.fire({
           icon: "warning",
@@ -81,7 +76,7 @@ const CardPage: React.FC = () => {
         title: "Tarjeta creada con éxito",
         confirmButtonText: "Aceptar",
       }).then(() => {
-        window.location.href = "/card1";
+        window.location.href = "/main/card1";
       });
     } catch (error) {
       console.error("Error al crear la tarjeta:", error);
@@ -122,7 +117,7 @@ const CardPage: React.FC = () => {
               />
               <InputText type="text" fieldName="fullName" placeholder="Nombre y apellido*" />
               <InputNumber type="number" fieldName="cvc" placeholder="Código de seguridad*" />
-  
+              
               {/* Los mensajes de error se colocan aquí */}
               <div className="w-full">
                 {errors.cardNumber && (
@@ -140,7 +135,7 @@ const CardPage: React.FC = () => {
               </div>
   
               <div className="w-full flex justify-center mt-4">
-                <ContinueButton isEnabled={isValid} />
+                <ContinueButton isEnabled={isValid} handleSubmit={handleSubmit(onSubmit)} />
               </div>
             </form>
           </FormProvider>
@@ -148,6 +143,7 @@ const CardPage: React.FC = () => {
       </main>
     </div>
   );
+  
 };
 
 export default CardPage;

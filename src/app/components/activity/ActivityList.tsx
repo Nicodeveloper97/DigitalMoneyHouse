@@ -109,7 +109,7 @@ const ActivityList: React.FC = () => {
 
   const handleActivityClick = (activityId: number) => {
     localStorage.setItem("selectedTransactionId", activityId.toString());
-    window.location.href = "/activity2";
+    window.location.href = "/main/activity2";
   };
 
   const toggleFilterMenu = () => setShowFilterMenu(!showFilterMenu);
@@ -127,7 +127,7 @@ const ActivityList: React.FC = () => {
 
   const handleShowMore = () => {
     // Redirige a la página de actividades
-    window.location.href = "main/activity";
+    window.location.href = "/main/activity";
   };
 
   return (

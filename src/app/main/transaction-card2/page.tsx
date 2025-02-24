@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Menu from "@/app/components/menu/menu";
 import AccountAPI from "../../services/Account/account.service";
 import { TransferencesService } from "../../services/transferences/transferences.service";
-import Swal from "sweetalert2"; // Importamos SweetAlert2
+import Swal from "sweetalert2"; 
 
 interface TransactionCard2pageProps {
   cardInfo: {
@@ -86,7 +86,7 @@ const TransactionCard2page: React.FC = () => {
               await transferService.createDeposit(depositData); // Realizamos el depósito usando createDeposit
 
               // Redirigir al path /transaction-card3 con parámetros en la URL
-              const url = new URL("/transaction-card3", window.location.origin);
+              const url = new URL("/main/transaction-card3", window.location.origin);
               url.searchParams.append("amount", amount.toString());
               url.searchParams.append("date", getArgentinaDate());
               url.searchParams.append("lastFourDigits", cardInfo.lastFourDigits);

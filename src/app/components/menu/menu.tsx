@@ -38,26 +38,21 @@ const Menu = () => {
   return (
     <div className="hidden md:block w-[276px] min-h-screen bg-lime-500 text-black">
       <ul className="pl-10 py-10 space-y-4 w-full">
-        {menuLinks.map((link, index) => {
-          const isActive = pathname === link.href;
-          return (
-            <li
-              className={`${
-                isActive ? "font-bold" : "font-semibold"
-              } text-total-black`}
-              key={`option-menu-${index}`}>
-              <Link href={link.href}>{link.name}</Link>
-            </li>
-          );
-        })}
-        <div className="mt-auto mb-4">
-          <button
-            className="text-total-black font-semibold"
-            onClick={handleLogout}
+        {menuLinks.map(({ href, name }, index) => (
+          <li
+            key={`option-menu-${index}`}
+            className={`${
+              pathname === href ? "font-bold" : "font-semibold"
+            } text-total-black`}
           >
+            <Link href={href}>{name}</Link>
+          </li>
+        ))}
+        <li className="mt-auto mb-4">
+          <button className="text-total-black font-semibold" onClick={handleLogout}>
             Cerrar sesión
           </button>
-        </div>
+        </li>
       </ul>
     </div>
   );

@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import Menu from "@/app/components/menu/menu";
 import ActivityList from "@/app/components/activity/ActivityList";

@@ -122,14 +122,14 @@ const NavbarMobile = ({ userInfo, isLoggedIn }: MenuMobileProps) => {
                 <a
                   href="/login"
                   className="block px-4 py-2 text-lg hover:bg-lime-500 hover:text-black"
-                  onClick={() => handleNavigation("/login")}
+                  onClick={() => handleNavigation("/main/login")}
                 >
                   Ingresar
                 </a>
                 <a
                   href="/sign-up"
                   className="block px-4 py-2 text-lg hover:bg-lime-500 hover:text-black"
-                  onClick={() => handleNavigation("/sign-up")}
+                  onClick={() => handleNavigation("/main/sign-up")}
                 >
                   Crear cuenta
                 </a>

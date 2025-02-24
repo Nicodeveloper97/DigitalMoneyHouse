@@ -1,4 +1,5 @@
-import React from 'react';
+"use client"
+import React from "react";
 import Menu from '../../components/menu/menu'; 
 import CardHome from '@/app/components/card/CardHome';
 import HomeButton from '@/app/components/buttons/HomeButton';

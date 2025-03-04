@@ -15,12 +15,12 @@ interface MenuMobileProps {
 }
 
 const menuLinks = [
-  { href: "/home", name: "Inicio" },
-  { href: "/activity", name: "Actividad" },
-  { href: "/account", name: "Tu perfil" },
-  { href: "/transactions", name: "Cargar dinero" },
-  { href: "/services", name: "Pagar servicios" },
-  { href: "/card1", name: "Tarjetas" },
+  { href: "/main/home", name: "Inicio" },
+  { href: "/main/activity", name: "Actividad" },
+  { href: "/main/account", name: "Tu perfil" },
+  { href: "/main/transactions", name: "Cargar dinero" },
+  { href: "/main/services", name: "Pagar servicios" },
+  { href: "/main/card1", name: "Tarjetas" },
 ];
 
 const NavbarMobile = ({ userInfo, isLoggedIn }: MenuMobileProps) => {
@@ -120,16 +120,16 @@ const NavbarMobile = ({ userInfo, isLoggedIn }: MenuMobileProps) => {
             {!isLoggedIn ? (
               <>
                 <a
-                  href="/login"
+                  href="/main/login"
                   className="block px-4 py-2 text-lg hover:bg-lime-500 hover:text-black"
-                  onClick={() => handleNavigation("/main/login")}
+                  onClick={() => handleNavigation("/login")}
                 >
                   Ingresar
                 </a>
                 <a
-                  href="/sign-up"
+                  href="/main/sign-up"
                   className="block px-4 py-2 text-lg hover:bg-lime-500 hover:text-black"
-                  onClick={() => handleNavigation("/main/sign-up")}
+                  onClick={() => handleNavigation("/sign-up")}
                 >
                   Crear cuenta
                 </a>

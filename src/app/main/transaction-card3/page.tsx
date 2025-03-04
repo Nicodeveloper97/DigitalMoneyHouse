@@ -49,7 +49,7 @@ const TransactionCard3Page = () => {
           <div className="flex justify-end space-x-4 mt-6 w-full"> 
             <button
               className="bg-gray-300 font-bold text-black w-[233px] h-[64px] px-4 py-2 rounded-md"
-              onClick={() => window.location.href = '/home'}
+              onClick={() => window.location.href = '/main/home'}
             >
               Ir al inicio
             </button>

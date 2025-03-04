@@ -1,4 +1,4 @@
-"use client";
+
 import React from "react";
 import Menu from "@/app/components/menu/menu";
 import TransactionCardCard from "../../components/card/TransactionCardCard";

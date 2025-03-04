@@ -56,6 +56,7 @@ const AccountCard: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState<User | null>(null);
+  const [fullname, setFullname] = useState(""); // Nuevo estado para el nombre completo
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -77,6 +78,7 @@ const AccountCard: React.FC = () => {
           .then((data) => {
             setUser(data);
             setEditedUser(data);
+            setFullname(`${data.firstname} ${data.lastname}`); // Combinar nombre y apellido
             setLoading(false);
           })
           .catch(() => {
@@ -109,9 +111,14 @@ const AccountCard: React.FC = () => {
       return;
     }
 
+    // Separar el nombre completo en firstname y lastname
+    const [firstname, lastname] = fullname.split(" ");
+    const updatedUser = { ...editedUser, firstname, lastname };
+
     try {
-      await UserAPI.updateUserData(token, user.id, editedUser);
-      setUser(editedUser);
+      await UserAPI.updateUserData(token, user.id, updatedUser);
+      setUser(updatedUser);
+      setEditedUser(updatedUser);
       setIsEditing(false);
       Swal.fire({
         title: "Actualizado",
@@ -140,17 +147,10 @@ const AccountCard: React.FC = () => {
           onSave={isEditing ? handleSave : handleEdit}
         />
         <EditableField
-          label="Nombre"
-          value={editedUser?.firstname}
+          label="Nombre completo"
+          value={fullname}
           isEditing={isEditing}
-          onChange={(e) => setEditedUser({ ...editedUser!, firstname: e.target.value })}
-          onSave={isEditing ? handleSave : handleEdit}
-        />
-        <EditableField
-          label="Apellido"
-          value={editedUser?.lastname}
-          isEditing={isEditing}
-          onChange={(e) => setEditedUser({ ...editedUser!, lastname: e.target.value })}
+          onChange={(e) => setFullname(e.target.value)} // Actualizar el nombre completo
           onSave={isEditing ? handleSave : handleEdit}
         />
         <EditableField

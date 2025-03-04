@@ -7,6 +7,8 @@ import NavbarMobile from '../buttons/NavbarMobile';
 
 const Navbar = () => {
   const pathname = usePathname();
+  console.log("Current pathname:", pathname); // Depuración
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState({ firstname: "", lastname: "" });
 
@@ -44,22 +46,28 @@ const Navbar = () => {
     }
   }, []);
 
+  // Rutas donde el navbar cambia de color y los botones se ocultan
+  const specialRoutes = ["/main/login", "/main/sign-up", "/main/login-password"];
+
+  // Cambio de color del navbar
   const bgColor = useMemo(
     () =>
-      ["/login", "/login-password", "/sign-up"].includes(pathname)
+      specialRoutes.some((route) => pathname.startsWith(route))
         ? "bg-lime-500"
         : "bg-black",
     [pathname]
   );
 
+  // Cambio de logo
   const logo = useMemo(
     () =>
-      ["/login", "/login-password", "/sign-up"].includes(pathname)
+      specialRoutes.some((route) => pathname.startsWith(route))
         ? "/assets/Logo-black.png"
         : "/assets/logo.png",
     [pathname]
   );
 
+  // Iniciales del usuario
   const getInitials = useMemo(() => {
     if (!userInfo.firstname && !userInfo.lastname) return "NN";
     return (
@@ -67,10 +75,15 @@ const Navbar = () => {
     );
   }, [userInfo]);
 
+  // Condición para ocultar los botones en las rutas especiales
+  const shouldHideButtons = specialRoutes.some((route) =>
+    pathname.startsWith(route)
+  );
+
   return (
     <div>
       <div
-        className={`${bgColor} h-16 w-full flex justify-between items-center px-4 hidden md:flex`}
+        className={`h-16 w-full flex justify-between items-center px-4 hidden md:flex ${bgColor}`}
       >
         <div className="text-white font-bold">
           <Link href={isLoggedIn ? "/main/home" : "/"}>
@@ -78,32 +91,35 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {!isLoggedIn ? (
-          !["/login", "/login-password", "/sign-up"].includes(pathname) && (
-            <div className="flex space-x-4">
-              <Link href="/main/login">
-                <div className="bg-black text-lime-500 px-4 py-2 rounded border border-lime-500 font-bold">
-                  Ingresar
+        {/* Mostrar botones solo si no estamos en las rutas especiales */}
+        {!shouldHideButtons && (
+          <>
+            {!isLoggedIn ? (
+              <div className="flex space-x-4">
+                <Link href="/main/login">
+                  <div className="bg-black text-lime-500 px-4 py-2 rounded border border-lime-500 font-bold">
+                    Ingresar
+                  </div>
+                </Link>
+                <Link href="/main/sign-up">
+                  <button className="bg-lime-500 text-black px-4 py-2 rounded font-bold">
+                    Crear cuenta
+                  </button>
+                </Link>
+              </div>
+            ) : (
+              <Link href="/main/home">
+                <div className="flex items-center space-x-4">
+                  <div className="bg-lime-500 text-black font-bold rounded-full w-10 h-10 flex items-center justify-center">
+                    {getInitials}
+                  </div>
+                  <span className="text-white font-bold">
+                    Hola, {userInfo.firstname} {userInfo.lastname}
+                  </span>
                 </div>
               </Link>
-              <Link href="/main/sign-up">
-                <button className="bg-lime-500 text-black px-4 py-2 rounded font-bold">
-                  Crear cuenta
-                </button>
-              </Link>
-            </div>
-          )
-        ) : (
-          <Link href="/main/home">
-            <div className="flex items-center space-x-4">
-              <div className="bg-lime-500 text-black font-bold rounded-full w-10 h-10 flex items-center justify-center">
-                {getInitials}
-              </div>
-              <span className="text-white font-bold">
-                Hola, {userInfo.firstname} {userInfo.lastname}
-              </span>
-            </div>
-          </Link>
+            )}
+          </>
         )}
       </div>
       <NavbarMobile userInfo={userInfo} isLoggedIn={isLoggedIn} />

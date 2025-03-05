@@ -10,13 +10,74 @@ interface Activity {
   description: string;
   dated: string;
   amount: number;
-  type: "income" | "expense"; 
+  type: "income" | "expense";
+  category?: string;
 }
 
+const determineTransactionType = (transaction: {
+  description: string;
+  amount: number;
+  category?: string;
+}): "income" | "expense" => {
+  
+  const incomeCategories = [
+    "deposito", 
+    "transferencia", 
+    "reembolso", 
+    "pago", 
+    "ingreso", 
+    "salario", 
+    "abono"
+  ];
+
+  
+  const expenseCategories = [
+    "servicio", 
+    "luz", 
+    "agua", 
+    "gas", 
+    "internet", 
+    "telefono", 
+    "compra", 
+    "pago de", 
+    "suscripcion", 
+    "factura",
+    "electricidad",
+    "movil"
+  ];
+
+  
+  const lowercaseDescription = transaction.description.toLowerCase();
+
+  
+  if (incomeCategories.some(category => 
+    lowercaseDescription.includes(category)
+  )) {
+    return "income";
+  }
+
+  
+  if (expenseCategories.some(category => 
+    lowercaseDescription.includes(category)
+  )) {
+    return "expense";
+  }
+
+  
+  if (transaction.amount > 0) {
+    return "income";
+  }
+
+  
+  if (transaction.amount < 0) {
+    return "expense";
+  }
+
+  return "expense";
+};
+
 const ActivityList: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState<string>(() => {
-    return localStorage.getItem('activitySearchTerm') || "";
-  });
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [activities, setActivities] = useState<Activity[]>([]);
   const [filteredActivities, setFilteredActivities] = useState<Activity[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,15 +88,14 @@ const ActivityList: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState("");
   const [transactionTypeFilter, setTransactionTypeFilter] = useState<"all" | "income" | "expense">("all");
 
-  useEffect(() => {
-    if (localStorage.getItem('activitySearchTerm')) {
-      localStorage.removeItem('activitySearchTerm');
-    }
-  }, []);
-
+  // Efecto para inicializar `searchTerm` solo en el cliente
   useEffect(() => {
     setIsClient(true);
     setPath(window.location.pathname);
+    const savedSearchTerm = localStorage.getItem('activitySearchTerm');
+    if (savedSearchTerm) {
+      setSearchTerm(savedSearchTerm);
+    }
   }, []);
 
   useEffect(() => {
@@ -46,7 +106,17 @@ const ActivityList: React.FC = () => {
         const { id: accountId } = await new AccountAPI().getAccountInfo(token);
         let transactions: Activity[] = await transactionsAPI.getAllTransactions(accountId);
 
-        // Ordenar transacciones por fecha (más recientes primero)
+        
+        transactions = transactions.map(transaction => ({
+          ...transaction,
+          type: determineTransactionType({
+            description: transaction.description,
+            amount: transaction.amount,
+            category: transaction.category
+          })
+        }));
+
+        
         transactions = transactions.sort((a: Activity, b: Activity) => 
           new Date(b.dated).getTime() - new Date(a.dated).getTime()
         );
@@ -64,17 +134,14 @@ const ActivityList: React.FC = () => {
   useEffect(() => {
     let filtered = activities;
 
-    
     if (selectedFilter) {
       filtered = applyDateFilter(filtered, selectedFilter);
     }
 
-    
     if (transactionTypeFilter !== "all") {
       filtered = filtered.filter(({ type }) => type === transactionTypeFilter);
     }
 
-    
     filtered = filtered.filter(({ description }) =>
       description?.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -136,14 +203,31 @@ const ActivityList: React.FC = () => {
   const toggleFilterMenu = () => setShowFilterMenu(!showFilterMenu);
   
   const applyFilter = () => {
-    const selectedOption = document.querySelector('input[name="filter"]:checked')?.id;
-    setSelectedFilter(selectedOption || "");
-    const selectedType = document.querySelector('input[name="typeFilter"]:checked')?.id as "all" | "income" | "expense";
-    setTransactionTypeFilter(selectedType || "all");
+    const dateFilterInput = document.querySelector('input[name="filter"]:checked') as HTMLInputElement;
+    const typeFilterInput = document.querySelector('input[name="typeFilter"]:checked') as HTMLInputElement;
+
+    setSelectedFilter(dateFilterInput ? dateFilterInput.id : "");
+    setTransactionTypeFilter(
+      typeFilterInput 
+        ? typeFilterInput.id as "all" | "income" | "expense" 
+        : "all"
+    );
+    
     setShowFilterMenu(false);
   };
   
   const clearFilters = () => {
+    const dateFilters = document.querySelectorAll('input[name="filter"]');
+    const typeFilters = document.querySelectorAll('input[name="typeFilter"]');
+    
+    dateFilters.forEach((input) => {
+      (input as HTMLInputElement).checked = false;
+    });
+    
+    typeFilters.forEach((input) => {
+      (input as HTMLInputElement).checked = false;
+    });
+
     setSelectedFilter("");
     setTransactionTypeFilter("all");
     setFilteredActivities(activities);
@@ -202,7 +286,13 @@ const ActivityList: React.FC = () => {
           <ul className="space-y-2">
             {["hoy", "ayer", "ultima-semana", "ultimos-15 dias", "ultimo-mes", "ultimos-3 meses"].map((filter) => (
               <li key={filter}>
-                <input type="radio" id={filter} name="filter" />
+                <input 
+                  type="radio" 
+                  id={filter} 
+                  name="filter" 
+                  checked={selectedFilter === filter}
+                  onChange={() => setSelectedFilter(filter)}
+                />
                 <label htmlFor={filter} className="ml-2 capitalize">
                   {filter.replace("-", " ")}
                 </label>
@@ -213,7 +303,13 @@ const ActivityList: React.FC = () => {
           <ul className="space-y-2">
             {["all", "income", "expense"].map((type) => (
               <li key={type}>
-                <input type="radio" id={type} name="typeFilter" />
+                <input 
+                  type="radio" 
+                  id={type} 
+                  name="typeFilter" 
+                  checked={transactionTypeFilter === type}
+                  onChange={() => setTransactionTypeFilter(type as "all" | "income" | "expense")}
+                />
                 <label htmlFor={type} className="ml-2 capitalize">
                   {type === "all" ? "Todos" : type === "income" ? "Ingresos" : "Egresos"}
                 </label>
@@ -228,7 +324,6 @@ const ActivityList: React.FC = () => {
           </button>
         </div>
       )}
-
       
       <div className="flex flex-wrap gap-2 mt-4">
         {selectedFilter && (
@@ -265,27 +360,8 @@ const ActivityList: React.FC = () => {
             ))}
           </ul>
         )}
-
-        {isClient && path === "/home" && filteredActivities.length > itemsPerPage * currentPage && (
-          <button onClick={handleShowMore} className="mt-4 w-full px-4 py-2 bg-lime-500 text-black rounded-[10px]">
-            Ver más
-          </button>
-        )}
-
-        {isClient && path === "/main/activity" && Math.ceil(filteredActivities.length / itemsPerPage) > 1 && (
-          <div className="flex justify-center mt-4">
-            {Array.from({ length: Math.ceil(filteredActivities.length / itemsPerPage) }, (_, i) => (
-              <button
-                key={i + 1}
-                className={`mx-1 px-3 py-1 rounded-md ${i + 1 === currentPage ? "bg-lime-500 text-black" : "bg-gray-300 text-gray-600"}`}
-                onClick={() => paginate(i + 1)}
-              >
-                {i + 1}
-              </button>
-            ))}
-          </div>
-        )}
-
+      </div>
+      
         <button 
           onClick={handleViewAllActivity} 
           className="mt-4 w-full px-4 py-2 text-black rounded-[10px] flex items-center justify-between"
@@ -294,7 +370,7 @@ const ActivityList: React.FC = () => {
           <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
         </button>
       </div>
-    </div>
+    
   );
 };
 

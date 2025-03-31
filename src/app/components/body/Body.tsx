@@ -31,7 +31,7 @@ const Body = () => {
         <Card title="Pago de servicios" content="Pagá mensualmente los servicios en 3 simples clicks. Facil, rápido y conveniente. Olvidate de las facturas en papel"/>
       </div>
       <div
-        className="absolute bottom-0 left-0 w-full h-[80px] sm:h-[120px] lg:h-[148px] bg-lime-500 rounded-t-[20px] sm:rounded-t-[30px] flex items-center justify-center"
+        className="absolute bottom-0 left-0 w-full h-[80px] sm:h-[120px] lg:h-[148px] bg-[#C1FD35] rounded-t-[20px] sm:rounded-t-[30px] flex items-center justify-center"
         style={{ zIndex: 1 }}
       >
       </div>

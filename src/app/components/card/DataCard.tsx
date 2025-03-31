@@ -93,12 +93,12 @@ const DataCard: React.FC = () => {
   if (!accountInfo) return <p>Cargando datos...</p>;
 
   return (
-    <div className="bg-black text-white p-6 rounded-lg shadow-md w-[350px] sm:w-[511px] lg:w-[1003px] mt-6">
+    <div className="bg-[#201F22] text-white p-6 rounded-lg shadow-md w-[350px] sm:w-[511px] lg:w-[1003px] mt-6">
       <p className="font-bold text-gray-300 mb-4">Copia tu cvu o alias para ingresar o transferir dinero desde otra cuenta</p>
 
-      <DataField label="CVU" value={accountInfo.cvu} onCopy={handleCopy} />
+      <DataField label="CVU" value={accountInfo.cvu} onCopy={handleCopy}  />
       <DataField label="Alias" value={accountInfo.alias} onCopy={handleCopy}>
-        <FontAwesomeIcon icon={faPen} className="text-lime-500 cursor-pointer" onClick={() => setShowInput(!showInput)} />
+        <FontAwesomeIcon icon={faPen} className="text-[#C1FD35] cursor-pointer" onClick={() => setShowInput(!showInput)} />
       </DataField>
 
       {showInput && (
@@ -117,7 +117,7 @@ const DataCard: React.FC = () => {
             <button
               onClick={handleUpdateAlias}
               disabled={isUpdating || !newAlias.trim()}
-              className={`bg-lime-500 text-white px-4 py-2 rounded ${isUpdating ? 'opacity-50 cursor-not-allowed' : 'hover:bg-lime-600'}`}
+              className={`bg-[#C1FD35] text-white px-4 py-2 rounded ${isUpdating ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               {isUpdating ? 'Actualizando...' : 'Actualizar Alias'}
             </button>
@@ -141,7 +141,7 @@ const DataField: React.FC<DataFieldProps> = ({ label, value, onCopy, children })
     <div className="flex items-center justify-between">
       <span>{value}</span>
       <div className="flex items-center">
-        <FontAwesomeIcon icon={faCopy} className="text-lime-500 cursor-pointer mr-4" onClick={() => onCopy(value)} />
+        <FontAwesomeIcon icon={faCopy} className="text-[#C1FD35] cursor-pointer mr-4" onClick={() => onCopy(value)} />
         {children}
       </div>
     </div>

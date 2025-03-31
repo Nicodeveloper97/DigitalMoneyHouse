@@ -118,7 +118,7 @@ const CardPage: React.FC = () => {
               <InputText type="text" fieldName="fullName" placeholder="Nombre y apellido*" />
               <InputNumber type="number" fieldName="cvc" placeholder="Código de seguridad*" />
               
-              {/* Los mensajes de error se colocan aquí */}
+              
               <div className="w-full">
                 {errors.cardNumber && (
                   <div className="text-red-500 text-sm mt-2">{errors.cardNumber.message}</div>

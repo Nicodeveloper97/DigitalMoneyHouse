@@ -273,7 +273,7 @@ const ActivityList: React.FC = () => {
           className="w-full border border-gray-300 rounded-[10px] pl-12 pr-4"
         />
         {isClient && path === "/main/activity" && (
-          <button onClick={toggleFilterMenu} className="ml-4 px-4 py-2 bg-lime-500 text-black rounded-[10px] flex items-center">
+          <button onClick={toggleFilterMenu} className="ml-4 px-4 py-2 bg-[#C1FD35] text-black rounded-[10px] flex items-center">
             <span className="mr-2 font-bold">Filtrar</span>
             <FontAwesomeIcon icon={faFilter} />
           </button>
@@ -316,7 +316,7 @@ const ActivityList: React.FC = () => {
               </li>
             ))}
           </ul>
-          <button onClick={applyFilter} className="mt-4 px-4 py-2 bg-lime-500 text-black rounded-[10px]">
+          <button onClick={applyFilter} className="mt-4 px-4 py-2 bg-[#C1FD35] text-black rounded-[10px]">
             Aplicar
           </button>
           <button onClick={clearFilters} className="mt-2 ml-4 px-4 py-2 bg-red-500 text-black rounded-[10px]">
@@ -349,7 +349,7 @@ const ActivityList: React.FC = () => {
             {currentActivities.map(({ id, description, amount, dated, type }, index) => (
               <li key={index} className="flex justify-between items-center cursor-pointer" onClick={() => handleActivityClick(id)}>
                 <div className="flex items-center">
-                  <span className={`w-4 h-4 rounded-full mr-2 ${type === "income" ? "bg-green-500" : "bg-red-500"}`}></span>
+                  <span className={`w-4 h-4 rounded-full mr-2 ${type === "income" ? "bg-[#C1FD35]" : "bg-red-500"}`}></span>
                   <span>{description}</span>
                 </div>
                 <div className="text-right">
@@ -364,7 +364,7 @@ const ActivityList: React.FC = () => {
       
         <button 
           onClick={handleViewAllActivity} 
-          className="mt-4 w-full px-4 py-2 text-black rounded-[10px] flex items-center justify-between"
+          className="mt-4 w-full px-4 py-2 text-black font-semibold rounded-[10px] flex items-center justify-between"
         >
           <span>Ver toda tu actividad</span>
           <FontAwesomeIcon icon={faArrowRight} className="ml-2" />

@@ -53,7 +53,7 @@ const Navbar = () => {
   const bgColor = useMemo(
     () =>
       specialRoutes.some((route) => pathname.startsWith(route))
-        ? "bg-lime-500"
+        ? "bg-[#C1FD35]"
         : "bg-black",
     [pathname]
   );
@@ -97,12 +97,12 @@ const Navbar = () => {
             {!isLoggedIn ? (
               <div className="flex space-x-4">
                 <Link href="/main/login">
-                  <div className="bg-black text-lime-500 px-4 py-2 rounded border border-lime-500 font-bold">
+                  <div className="bg-black text-[#C1FD35] px-4 py-2 rounded border border-[#C1FD35] font-bold">
                     Ingresar
                   </div>
                 </Link>
                 <Link href="/main/sign-up">
-                  <button className="bg-lime-500 text-black px-4 py-2 rounded font-bold">
+                  <button className="bg-[#C1FD35] text-black px-4 py-2 rounded font-bold">
                     Crear cuenta
                   </button>
                 </Link>
@@ -110,7 +110,7 @@ const Navbar = () => {
             ) : (
               <Link href="/main/home">
                 <div className="flex items-center space-x-4">
-                  <div className="bg-lime-500 text-black font-bold rounded-full w-10 h-10 flex items-center justify-center">
+                  <div className="bg-[#C1FD35] text-black font-bold rounded-full w-10 h-10 flex items-center justify-center">
                     {getInitials}
                   </div>
                   <span className="text-white font-bold">

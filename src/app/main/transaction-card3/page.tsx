@@ -33,17 +33,17 @@ const TransactionCard3Page = () => {
       <Menu />
       <main className="flex-1 p-4 flex justify-center items-center min-h-screen relative">
         <div className="flex flex-col items-center w-full max-w-[1006px]"> 
-          <div className="bg-lime-400 w-full h-[148px] p-6 rounded-lg text-center">
+          <div className="bg-[#C1FD35] w-full h-[148px] p-6 rounded-lg text-center">
             <div className="text-4xl mb-4">
               <FontAwesomeIcon icon={faCircleCheck} />
             </div>
             <h2 className="text-xl font-semibold">Ya cargamos el dinero en tu cuenta</h2>
           </div>
-          <div className="bg-black w-full p-6 rounded-lg text-white mt-4">
+          <div className="bg-[#201F22] w-full p-6 rounded-lg text-white mt-4">
             <p>{transactionData.date ? new Date(transactionData.date).toLocaleString() : ''} hs.</p>
-            <p className="text-3xl font-semibold mt-2 text-lime-400">${transactionData.amount}</p> 
+            <p className="text-3xl font-semibold mt-2 text-[#C1FD35]">${transactionData.amount}</p> 
             <p className="mt-4">de</p>
-            <p className="font-semibold text-lime-400">Cuenta propia</p> 
+            <p className="font-semibold text-[#C1FD35]">Cuenta propia</p> 
             <p>Tarjeta terminada en: {transactionData.lastFourDigits}</p>
           </div>
           <div className="flex justify-end space-x-4 mt-6 w-full"> 
@@ -53,7 +53,7 @@ const TransactionCard3Page = () => {
             >
               Ir al inicio
             </button>
-            <button className="bg-lime-400 font-bold text-black w-[233px] h-[64px] px-4 py-2 rounded-md">
+            <button className="bg-[#C1FD35] font-bold text-black w-[233px] h-[64px] px-4 py-2 rounded-md">
               Descargar comprobante
             </button>
           </div>

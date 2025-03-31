@@ -77,7 +77,7 @@ const NavbarMobile = ({ userInfo, isLoggedIn }: MenuMobileProps) => {
     <div className="block md:hidden">
       <div
         className={`h-16 flex justify-between items-center px-4 relative ${
-          isSpecialStyle ? "bg-lime-500" : "bg-black"
+          isSpecialStyle ? "bg-[#C1FD35]" : "bg-black"
         }`}
       >
         <div className="text-white font-bold">
@@ -93,7 +93,7 @@ const NavbarMobile = ({ userInfo, isLoggedIn }: MenuMobileProps) => {
         </div>
         <div className="flex items-center space-x-2">
           {isLoggedIn && (
-            <div className="bg-lime-500 text-black font-bold rounded-full w-10 h-10 flex items-center justify-center">
+            <div className="bg-[#C1FD35] text-black font-bold rounded-full w-10 h-10 flex items-center justify-center">
               {getInitials(userInfo.firstname, userInfo.lastname)}
             </div>
           )}
@@ -101,7 +101,7 @@ const NavbarMobile = ({ userInfo, isLoggedIn }: MenuMobileProps) => {
             onClick={toggleMenu}
             className={`p-2 rounded-full focus:outline-none ${
               isSpecialStyle
-                ? "bg-lime-500 text-black"
+                ? "bg-[#C1FD35] text-black"
                 : "bg-black text-lime-500"
             }`}
           >
@@ -121,14 +121,14 @@ const NavbarMobile = ({ userInfo, isLoggedIn }: MenuMobileProps) => {
               <>
                 <a
                   href="/main/login"
-                  className="block px-4 py-2 text-lg hover:bg-lime-500 hover:text-black"
+                  className="block px-4 py-2 text-lg hover:bg-[#C1FD35] hover:text-black"
                   onClick={() => handleNavigation("/login")}
                 >
                   Ingresar
                 </a>
                 <a
                   href="/main/sign-up"
-                  className="block px-4 py-2 text-lg hover:bg-lime-500 hover:text-black"
+                  className="block px-4 py-2 text-lg hover:bg-[#C1FD35] hover:text-black"
                   onClick={() => handleNavigation("/sign-up")}
                 >
                   Crear cuenta
@@ -143,7 +143,7 @@ const NavbarMobile = ({ userInfo, isLoggedIn }: MenuMobileProps) => {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="block px-4 py-2 text-lg hover:bg-lime-500 hover:text-black"
+                    className="block px-4 py-2 text-lg hover:bg-[#C1FD35] hover:text-black"
                     onClick={toggleMenu}
                   >
                     {link.name}
@@ -151,7 +151,7 @@ const NavbarMobile = ({ userInfo, isLoggedIn }: MenuMobileProps) => {
                 ))}
                 <button
                   onClick={handleLogout}
-                  className="block px-4 py-2 text-lg hover:bg-lime-500 hover:text-black"
+                  className="block px-4 py-2 text-lg hover:bg-[#C1FD35] hover:text-black"
                 >
                   Cerrar sesión
                 </button>

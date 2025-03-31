@@ -112,8 +112,8 @@ const TransactionCard2page: React.FC = () => {
     <div className="flex">
       <Menu />
       <main className="flex-1 p-4 flex flex-col items-center mt-8 min-h-screen">
-        <div className="bg-black p-6 rounded-lg shadow-lg w-[1006px] h-[306px] relative">
-          <h2 className="text-lime-500 font-bold text-xl absolute top-6 left-9">
+        <div className="bg-[#201F22] p-6 rounded-lg shadow-lg w-[1006px] h-[306px] relative">
+          <h2 className="text-[#C1FD35] font-bold text-xl absolute top-6 left-9">
             ¿Cuánto querés ingresar a la cuenta?
           </h2>
           {cardInfo ? (

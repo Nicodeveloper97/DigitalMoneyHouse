@@ -36,7 +36,7 @@ const Menu = () => {
   ];
 
   return (
-    <div className="hidden md:block w-[276px] min-h-screen bg-lime-500 text-black">
+    <div className="hidden md:block w-[276px] min-h-screen bg-[#C1FD35] text-black">
       <ul className="pl-10 py-10 space-y-4 w-full">
         {menuLinks.map(({ href, name }, index) => (
           <li

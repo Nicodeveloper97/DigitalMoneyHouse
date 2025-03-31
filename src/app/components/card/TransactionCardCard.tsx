@@ -143,8 +143,8 @@ const TransactionCardCard = () => {
 
   return (
     <div className="flex justify-center items-center p-4">
-      <div className="bg-black p-8 rounded-lg shadow-lg w-[350px] sm:w-[350px] md:w-[511px] lg:w-[1006px]">
-        <h2 className="text-3xl text-lime-500 font-semibold mb-6">
+      <div className="bg-[#201F22] p-8 rounded-lg shadow-lg w-[350px] sm:w-[350px] md:w-[511px] lg:w-[1006px]">
+        <h2 className="text-3xl text-[#C1FD35] font-semibold mb-6">
           Seleccionar tarjeta
         </h2>
         <div className="bg-white rounded-lg p-4 mb-6">
@@ -166,7 +166,7 @@ const TransactionCardCard = () => {
                   <div className="flex items-center">
                     <FontAwesomeIcon
                       icon={faCirclePlus}
-                      className="text-lime-500 mr-4"
+                      className="text-[#C1FD35] mr-4"
                       size="lg"
                     />
                     <span className="text-black font-medium">
@@ -177,7 +177,7 @@ const TransactionCardCard = () => {
                     type="radio"
                     checked={selectedCard?.id === card.id}
                     onChange={() => handleCardSelection(card)}
-                    className="form-radio text-lime-500"
+                    className="form-radio text-[#C1FD35]"
                   />
                 </div>
               ))}
@@ -186,7 +186,7 @@ const TransactionCardCard = () => {
                 <div className="flex justify-between items-center mt-4">
                   <button
                     onClick={goToPreviousPage}
-                    className="bg-lime-500 text-black px-4 py-2 rounded-lg font-semibold"
+                    className="bg-[#C1FD35] text-black px-4 py-2 rounded-lg font-semibold"
                     disabled={currentPage === 1}
                   >
                     Anterior
@@ -196,7 +196,7 @@ const TransactionCardCard = () => {
                   </p>
                   <button
                     onClick={goToNextPage}
-                    className="bg-lime-500 text-black px-4 py-2 rounded-lg font-semibold"
+                    className="bg-[#C1FD35] text-black px-4 py-2 rounded-lg font-semibold"
                     disabled={currentPage === totalPages}
                   >
                     Siguiente
@@ -211,7 +211,7 @@ const TransactionCardCard = () => {
           {!isServicesPage && (
             <button
               onClick={handleNewCardClick}
-              className="flex items-center bg-black text-lime-500 px-4 py-2 rounded-lg font-semibold"
+              className="flex items-center bg-[#201F22] text-[#C1FD35] px-4 py-2 rounded-lg font-semibold"
             >
               <FontAwesomeIcon icon={faCirclePlus} className="mr-2" />
               Nueva tarjeta
@@ -220,7 +220,7 @@ const TransactionCardCard = () => {
 
           <button
             onClick={handleContinueClick}
-            className="bg-lime-500 text-black px-8 py-2 rounded-lg font-semibold"
+            className="bg-[#C1FD35] text-black px-8 py-2 rounded-lg font-semibold"
           >
             {isServicesPage ? "Pagar" : "Continuar"}
           </button>

@@ -93,7 +93,7 @@ const DataCard: React.FC = () => {
   if (!accountInfo) return <p>Cargando datos...</p>;
 
   return (
-    <div className="bg-[#201F22] text-white p-6 rounded-lg shadow-md w-[350px] sm:w-[511px] lg:w-[1003px] mt-6">
+    <div className="bg-[#201F22] text-white p-6 rounded-lg shadow-md w-[320px] sm:w-[511px] lg:w-[1003px] mt-6">
       <p className="font-bold text-gray-300 mb-4">Copia tu cvu o alias para ingresar o transferir dinero desde otra cuenta</p>
 
       <DataField label="CVU" value={accountInfo.cvu} onCopy={handleCopy}  />

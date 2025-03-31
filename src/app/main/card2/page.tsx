@@ -92,34 +92,72 @@ const CardPage: React.FC = () => {
   return (
     <div className="flex">
       <Menu />
-      <main className="flex-1 p-4 flex justify-center items-center bg-gray-100 min-h-screen">
-        <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-4xl">
-          <h1 className="block text-2xl font-bold mb-4 flex justify-center sm:hidden">Tarjetas</h1>
+      <main className="flex-1 p-2 sm:p-4 flex justify-center items-center bg-gray-100 min-h-screen">
+        <div className="bg-white rounded-lg shadow-lg p-4 sm:p-8 w-full max-w-[95vw] sm:max-w-4xl">
+          <h1 className="block text-xl sm:text-2xl font-bold mb-3 sm:mb-4 flex justify-center sm:hidden">Tarjetas</h1>
+          
           <FormProvider {...methods}>
-            <form className="flex flex-wrap gap-4 py-4 justify-center" onSubmit={handleSubmit(onSubmit)}>
-              <div className="w-full flex justify-center mb-8">
-                <Cards cvc={cvc} expiry={expiry} name={name} number={cardNumber} />
+            <form className="flex flex-wrap gap-3 sm:gap-4 py-3 sm:py-4 justify-center" onSubmit={handleSubmit(onSubmit)}>
+              <div className="w-full flex justify-center mb-6 sm:mb-8">
+                <Cards 
+                  cvc={cvc} 
+                  expiry={expiry} 
+                  name={name} 
+                  number={cardNumber}
+                  containerStyle={{
+                    width: '100%',
+                    maxWidth: '320px',
+                    borderRadius: '10px'
+                  }}
+                />
               </div>
-  
-              <InputNumber type="number" fieldName="cardNumber" placeholder="Número de tarjeta*" />
-              <Controller
-                name="expiry"
-                control={control}
-                render={({ field }) => (
-                  <input
-                    type="text"
-                    placeholder="Fecha de vencimiento (MM/YY)*"
-                    value={formatExpiry(field.value || "")}
-                    onChange={(e) => field.onChange(formatExpiry(e.target.value))}
-                    className="w-[300px] h-[50px] sm:w-[360px] sm:h-[64px] bg-white border border-gray-300 px-4 py-2 rounded-[10px] text-black text-[18px] mb-2"
-                  />
-                )}
-              />
-              <InputText type="text" fieldName="fullName" placeholder="Nombre y apellido*" />
-              <InputNumber type="number" fieldName="cvc" placeholder="Código de seguridad*" />
+
+              <div className="w-full px-2 sm:px-0 sm:w-[360px]">
+                <InputNumber 
+                  type="number" 
+                  fieldName="cardNumber" 
+                  placeholder="Número de tarjeta*"
+                  className="w-full h-[50px] sm:h-[64px] bg-white border border-gray-300 px-4 py-2 rounded-[10px] text-black text-[16px] sm:text-[18px]"
+                />
+              </div>
               
+              <div className="w-full px-2 sm:px-0 sm:w-[360px]">
+                <Controller
+                  name="expiry"
+                  control={control}
+                  render={({ field }) => (
+                    <input
+                      type="text"
+                      placeholder="Fecha de vencimiento (MM/YY)*"
+                      value={formatExpiry(field.value || "")}
+                      onChange={(e) => field.onChange(formatExpiry(e.target.value))}
+                      className="w-full h-[50px] sm:h-[64px] bg-white border border-gray-300 px-4 py-2 rounded-[10px] text-black text-[16px] sm:text-[18px] mb-2"
+                      maxLength={5}
+                    />
+                  )}
+                />
+              </div>
               
-              <div className="w-full">
+              <div className="w-full px-2 sm:px-0 sm:w-[360px]">
+                <InputText 
+                  type="text" 
+                  fieldName="fullName" 
+                  placeholder="Nombre y apellido*"
+                  className="w-full h-[50px] sm:h-[64px] bg-white border border-gray-300 px-4 py-2 rounded-[10px] text-black text-[16px] sm:text-[18px]"
+                />
+              </div>
+              
+              <div className="w-full px-2 sm:px-0 sm:w-[360px]">
+                <InputNumber 
+                  type="number" 
+                  fieldName="cvc" 
+                  placeholder="Código de seguridad*"
+                  className="w-full h-[50px] sm:h-[64px] bg-white border border-gray-300 px-4 py-2 rounded-[10px] text-black text-[16px] sm:text-[18px]"
+                  maxLength={4}
+                />
+              </div>
+              
+              <div className="w-full px-2 sm:px-0 sm:w-[360px]">
                 {errors.cardNumber && (
                   <div className="text-red-500 text-sm mt-2">{errors.cardNumber.message}</div>
                 )}
@@ -134,8 +172,12 @@ const CardPage: React.FC = () => {
                 )}
               </div>
   
-              <div className="w-full flex justify-center mt-4">
-                <ContinueButton isEnabled={isValid} handleSubmit={handleSubmit(onSubmit)} />
+              <div className="w-full px-2 sm:px-0 sm:w-[360px] flex justify-center mt-4">
+                <ContinueButton 
+                  isEnabled={isValid} 
+                  handleSubmit={handleSubmit(onSubmit)}
+                  className="h-[50px] sm:h-[64px] text-[16px] sm:text-[18px]"
+                />
               </div>
             </form>
           </FormProvider>
@@ -143,7 +185,6 @@ const CardPage: React.FC = () => {
       </main>
     </div>
   );
-  
 };
 
 export default CardPage;

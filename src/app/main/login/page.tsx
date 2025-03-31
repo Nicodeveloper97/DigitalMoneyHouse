@@ -25,17 +25,17 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-black text-white">
-      <h1 className="text-2xl font-bold">¡Hola! Ingresá tu e-mail</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-black text-white max-sm:px-4">
+      <h1 className="text-2xl font-bold max-sm:text-xl max-sm:text-center max-sm:mb-4">¡Hola! Ingresá tu e-mail</h1>
       <FormProvider {...methods}>
-        <form className="flex flex-col space-y-4 py-4" onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col space-y-4 py-4 max-sm:w-full max-sm:px-2" onSubmit={handleSubmit(onSubmit)}>
           <InputText
             type="email"
             placeholder="Correo electrónico"
             fieldName="email"
           />
           {formState.errors.email && (
-            <p className="text-red-500">{formState.errors.email.message}</p>
+            <p className="text-red-500 max-sm:text-sm">{formState.errors.email.message}</p>
           )}
           <ContinueButton isEnabled={formState.isValid} />
           <CreateAccountButtonGray />

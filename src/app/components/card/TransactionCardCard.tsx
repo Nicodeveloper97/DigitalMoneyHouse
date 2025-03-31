@@ -143,7 +143,7 @@ const TransactionCardCard = () => {
 
   return (
     <div className="flex justify-center items-center p-4">
-      <div className="bg-[#201F22] p-8 rounded-lg shadow-lg w-[350px] sm:w-[350px] md:w-[511px] lg:w-[1006px]">
+      <div className="bg-[#201F22] p-8 rounded-lg shadow-lg w-[310px] sm:w-[350px] md:w-[511px] lg:w-[1006px]">
         <h2 className="text-3xl text-[#C1FD35] font-semibold mb-6">
           Seleccionar tarjeta
         </h2>

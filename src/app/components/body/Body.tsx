@@ -9,26 +9,32 @@ const Body = () => {
         backgroundImage: "url('/assets/fondo-home.jpeg')",
       }}
     >
-      <div className="flex flex-col justify-start h-full text-white px-8 pt-16">
-        <div className="max-w-md">
-          <p className="text-[48px] text-left mb-4">
+      <div className="flex flex-col justify-start h-full text-white px-8 pt-16 sm:px-8 sm:pt-16 max-sm:px-4 max-sm:pt-10">
+        <div className="max-w-md max-sm:max-w-full">
+          <p className="text-[48px] text-left mb-4 max-sm:text-3xl max-sm:leading-tight">
             De ahora en adelante, hacés más con tu dinero
           </p>
-          <p className="text-[34px] text-left text-lime-500">
+          <p className="text-[34px] text-left text-lime-500 max-sm:text-2xl">
             Tu nueva <strong>billetera virtual</strong>
           </p>
         </div>
       </div>
       <div
-        className="absolute bottom-[100px] sm:bottom-[34px] left-1/2 transform -translate-x-1/2 flex flex-col space-y-6 sm:flex-row sm:space-y-0 sm:space-x-4"
+        className="absolute bottom-[100px] sm:bottom-[34px] max-sm:bottom-[120px] left-1/2 transform -translate-x-1/2 flex flex-col space-y-6 sm:flex-row sm:space-y-0 sm:space-x-4"
         style={{
           height: '246px',
           zIndex: 10,
           maxWidth: 'calc(100% - 32px)',
         }}
       >
-        <Card title="Transferí dinero" content="Desde Digital Money House vas a poder transferir dinero a otras cuentas, asi como también recibir transferencias y nuclear tu capital en nuestra billetera virtual"/>
-        <Card title="Pago de servicios" content="Pagá mensualmente los servicios en 3 simples clicks. Facil, rápido y conveniente. Olvidate de las facturas en papel"/>
+        <Card 
+          title="Transferí dinero" 
+          content="Desde Digital Money House vas a poder transferir dinero a otras cuentas, asi como también recibir transferencias y nuclear tu capital en nuestra billetera virtual"
+        />
+        <Card 
+          title="Pago de servicios" 
+          content="Pagá mensualmente los servicios en 3 simples clicks. Facil, rápido y conveniente. Olvidate de las facturas en papel"
+        />
       </div>
       <div
         className="absolute bottom-0 left-0 w-full h-[80px] sm:h-[120px] lg:h-[148px] bg-[#C1FD35] rounded-t-[20px] sm:rounded-t-[30px] flex items-center justify-center"
